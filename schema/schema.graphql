@@ -10,3 +10,7 @@ type Todo {
     content: String!
     status: Status!
 }
+type Query {
+    hello(name: String): String!
+    getTodo(id:String!): Todo
+}
