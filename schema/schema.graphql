@@ -9,8 +9,16 @@ type Todo {
     name: String!
     content: String!
     status: Status!
+    user: User!
 }
+type User {
+    id: String!
+    name: String!
+    email: String!
+    todos: [Todo!]
+}
+
 type Query {
     hello(name: String): String!
-    getTodo(id:String!): Todo
+    getTodoById(id:String!): Todo
 }

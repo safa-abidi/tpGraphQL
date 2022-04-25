@@ -8,7 +8,7 @@ export const Query = {
         console.log('args : ', args);
         return `Hello ${args.name || 'World'}`;
     },
-    getTodo: (_, {id}) => {
+    getTodoById: (_, {id}) => {
         return db.todos.find(
             (todo) => todo.id === id
         );
