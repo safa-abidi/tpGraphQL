@@ -12,5 +12,23 @@ export const Query = {
         return db.todos.find(
             (todo) => todo.id === id
         );
+    },
+    getUserTodos: (_,{id}) => {
+        var userTodos = new Array();
+        db.todos.forEach((todo)=>{
+            if(todo.user == id){
+                userTodos.push(todo);
+            }
+        })
+        return userTodos;
+    },
+    getUserOfTodo: (_,{id}) => {
+        var todo =  db.todos.find(
+            (todo) => todo.id == id
+        )
+        
+        return db.users.find(
+            (user)=> user.id == todo.user
+        )
     }
 }
