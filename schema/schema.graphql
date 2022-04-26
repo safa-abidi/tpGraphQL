@@ -22,5 +22,5 @@ type Query {
     hello(name: String): String!
     getTodoById(id:String!): Todo
     getUserTodos(id:String!): [Todo]
-    getUserOfTodo(id:String!): User
+    getUserOfTodo(id:String!): User!
 }
