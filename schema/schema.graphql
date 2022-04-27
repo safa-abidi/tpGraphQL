@@ -45,4 +45,6 @@ type Mutation  {
 
 type Subscription {
     newTodo: Todo!
+    updateTodo: Todo!
+    deleteTodo: Todo!
 }
