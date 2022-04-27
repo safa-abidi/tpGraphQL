@@ -2,7 +2,7 @@ import {v4 as uuidv4} from 'uuid';
 //import { Status } from '../schema/schema.graphql'
 
 export const Mutation = {
-    addTodo: (parent, { addTodoInput }, { db }, info) => {
+    addTodo: (parent, { addTodoInput }, { db,pubsub }, info) => {
         var verif = db.users.find((user) => user["id"] == addTodoInput.user);
         if (!verif){
             throw new Error(`Ce user n'existe pas`);
@@ -16,7 +16,7 @@ export const Mutation = {
         
     },
 
-    updateTodo: (parent, {updateTodoInput, id}, {db}) => {
+    updateTodo: (parent, {updateTodoInput, id}, {db,pubsub}) => {
         
         const position = db.todos.findIndex((todo) => todo.id == id);
         if (position == -1) {
@@ -37,19 +37,19 @@ export const Mutation = {
                     todo.status = updateTodoInput.user
                 }
             }
-            pubsub.publish('updateTodo', {updateTodo})
-            
+            pubsub.publish('updateTodo', {updateTodo: todo})
             return todo;
         }
     },
 
-    deleteTodo: (parent, {id}, {db}) => {
+    deleteTodo: (parent, {id}, {db,pubsub}) => {
         const position = db.todos.findIndex((todo) => todo.id == id);
         if (position == -1) {
             throw new Error("Ce todo n'existe pas");
         } 
         else {
             const [todo] = db.todos.splice(position, 1);
+            pubsub.publish('deleteTodo', {deleteTodo: todo})
             return todo;
         }
     }

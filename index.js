@@ -4,6 +4,7 @@ import { Mutation } from './resolvers/Mutation.js'
 import {Todo} from "./resolvers/Todo.js";
 import {User} from "./resolvers/User.js";
 import { db } from './data/db.js';
+import {Subscription} from "./resolvers/Subscription.js";
 
 const typeDefs = "schema/schema.graphql";
 const pubsub = new PubSub();
@@ -11,6 +12,7 @@ const resolvers = {
     Query,
     Todo,
     Mutation,
+    Subscription,
 };
 const context = {
     db,
