@@ -42,3 +42,7 @@ type Mutation  {
     addTodo(addTodoInput: AddTodoInput): Todo
     updateTodo(updateTodoInput: updateTodoInput,id: String): Todo
 }
+
+type Subscription {
+    newTodo: Todo!
+}
