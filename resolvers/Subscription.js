@@ -8,5 +8,10 @@ export const Subscription = {
         subscribe(parent, args, { pubsub }, info) {
             return pubsub.asyncIterator('updateTodo');
         }
+    },
+    deleteTodo: {
+        subscribe(parent, args, { pubsub }, info) {
+            return pubsub.asyncIterator('deleteTodo');
+        }
     }
 }
