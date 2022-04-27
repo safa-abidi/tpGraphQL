@@ -11,7 +11,6 @@ const resolvers = {
     Query,
     Todo,
     Mutation,
-    //User,
 };
 const context = {
     db,

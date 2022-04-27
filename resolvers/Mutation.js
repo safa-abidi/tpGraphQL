@@ -17,25 +17,29 @@ export const Mutation = {
     },
 
     updateTodo: (parent, {updateTodoInput, id}, {db}) => {
-        var verif = db.users.find((user) => user["id"] == updateTodoInput.user);
-        if (!verif){
-            throw new Error(`Ce user n'existe pas`);
-        }
+        
+        const position = db.todos.findIndex((todo) => todo.id == id);
+        if (position == -1) {
+            throw new Error("Ce todo n'existe pas");
+        } 
         else{
-            const position = db.todos.findIndex((todo) => todo.id == id);
-            if (position == -1) {
-                throw new Error("Ce todo n'existe pas");
-            } 
-            else{
-                var todo= db.todos[position]
-                updateTodoInput.status ?? todo.status == updateTodoInput.status
-                updateTodoInput.content ?? todo.status == updateTodoInput.content
-                updateTodoInput.user ?? todo.status == updateTodoInput.user
-                updateTodoInput.name ?? todo.status == updateTodoInput.name
-                pubsub.publish('updateTodo', {updateTodo})
-                return todo;
+            var todo= db.todos[position];
+            updateTodoInput.status ? todo.status = updateTodoInput.status : todo.status;
+            updateTodoInput.content ? todo.content = updateTodoInput.content : todo.content;
+            updateTodoInput.name ? todo.name = updateTodoInput.name: todo.name;
+
+            if(updateTodoInput.user){
+                var verif = db.users.find((user) => user["id"] == updateTodoInput.user);
+                if (!verif){
+                    throw new Error(`Ce user n'existe pas`);
+                }
+                else{
+                    todo.status = updateTodoInput.user
+                }
             }
+            pubsub.publish('updateTodo', {updateTodo})
             
+            return todo;
         }
     },
 
