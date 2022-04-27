@@ -10,6 +10,7 @@ export const Mutation = {
         else{
             const newTodo = {id: uuidv4(),...addTodoInput, status: "WAITING"};
             db.todos.push(newTodo);
+            pubsub.publish('newTodo', {newTodo});
             return newTodo;
         }
         
@@ -31,6 +32,7 @@ export const Mutation = {
                 updateTodoInput.content ?? todo.status == updateTodoInput.content
                 updateTodoInput.user ?? todo.status == updateTodoInput.user
                 updateTodoInput.name ?? todo.status == updateTodoInput.name
+                pubsub.publish('updateTodo', {updateTodo})
                 return todo;
             }
             
