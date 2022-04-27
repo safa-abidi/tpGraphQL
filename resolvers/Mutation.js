@@ -21,7 +21,7 @@ export const Mutation = {
             throw new Error(`Ce user n'existe pas`);
         }
         else{
-            const position = db.todos.findIndex((todo) => todo.id === id);
+            const position = db.todos.findIndex((todo) => todo.id == id);
             if (position == -1) {
                 throw new Error("Ce todo n'existe pas");
             } 
@@ -38,7 +38,7 @@ export const Mutation = {
     },
 
     deleteTodo: (parent, {id}, {db}) => {
-        const position = db.todos.findIndex((todo) => todo.id === id);
+        const position = db.todos.findIndex((todo) => todo.id == id);
         if (position == -1) {
             throw new Error("Ce todo n'existe pas");
         } 
