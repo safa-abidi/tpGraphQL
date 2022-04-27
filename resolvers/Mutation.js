@@ -21,18 +21,30 @@ export const Mutation = {
             throw new Error(`Ce user n'existe pas`);
         }
         else{
-            var todo = db.todos.find((todo)=> {todo.id == id})
-            if(todo){
+            const position = db.todos.findIndex((todo) => todo.id === id);
+            if (position == -1) {
+                throw new Error("Ce todo n'existe pas");
+            } 
+            else{
+                var todo= db.todos[position]
                 updateTodoInput.status ?? todo.status == updateTodoInput.status
                 updateTodoInput.content ?? todo.status == updateTodoInput.content
                 updateTodoInput.user ?? todo.status == updateTodoInput.user
                 updateTodoInput.name ?? todo.status == updateTodoInput.name
                 return todo;
             }
-            else{
-                throw new Error(`Ce todo n'existe pas`);
-            }
             
+        }
+    },
+
+    deleteTodo: (parent, {id}, {db}) => {
+        const position = db.todos.findIndex((todo) => todo.id === id);
+        if (position == -1) {
+            throw new Error("Ce todo n'existe pas");
+        } 
+        else {
+            const [todo] = db.todos.splice(position, 1);
+            return todo;
         }
     }
 }

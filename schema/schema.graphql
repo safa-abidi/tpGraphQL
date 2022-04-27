@@ -38,7 +38,9 @@ input updateTodoInput{
     status: String
 }
 
+
 type Mutation  {
     addTodo(addTodoInput: AddTodoInput): Todo
     updateTodo(updateTodoInput: updateTodoInput,id: String): Todo
+    deleteTodo(id: String!) : Todo
 }
